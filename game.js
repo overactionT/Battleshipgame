@@ -11,9 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let playerAScore = 0;
     let playerBScore = 0;
 
-    function updateScoreBoard(playerA, playerB) {
-        const scoreDisplay = document.getElementById('score');
-        scoreDisplay.textContent = `${playerA} vs ${playerB}`;
+    function updateScoreBoard(myScore, enemyScore) {
+        const myScoreDisplay = document.getElementById('my-score');
+        const enemyScoreDisplay = document.getElementById('enemy-score');
+        myScoreDisplay.textContent = myScore;
+        enemyScoreDisplay.textContent = enemyScore;
     }
 
     function setupCellClickHandlers() {
@@ -43,10 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupCellClickHandlers();
 
-    document.getElementById('set-ship-3').addEventListener('click', () => setShipSize(3, 'lightblue'));
-    document.getElementById('set-ship-4').addEventListener('click', () => setShipSize(4, 'lightyellow'));
-    document.getElementById('set-ship-5').addEventListener('click', () => setShipSize(5, 'lightgreen'));
-
     function setShipSize(size, color) {
         if (shipsPlaced < 3) {
             shipSize = size;
@@ -59,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.add('selected');
             selectedCells.push(cell);
             cell.style.backgroundColor = shipColor;
-            cell.style.border = `2px solid ${shipColor}`;
+            cell.style.border = '2px solid black'; // 수정된 부분
         }
 
         if (selectedCells.length === shipSize) {
@@ -68,18 +66,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedCells.forEach(c => c.classList.add('ship'));
                 shipsPlaced++;
                 shipSize = 0;
-                if (shipsPlaced === 3) startGameButton.disabled = false;
+                selectedCells = []; // 선택된 셀 초기화
+                if (shipsPlaced === 3) {
+                    startGameButton.disabled = false; // 게임 시작 버튼 활성화
+                } else {
+                    alert(`You have placed ${shipsPlaced} ships. Place all 3 ships to start the game.`); // 수정된 부분
+                }
             } else {
+                alert("Invalid ship placement! Try again.");
                 resetSelectedCells();
             }
-            selectedCells = [];
         }
     }
 
+    // 전투함 크기 설정 버튼 이벤트
+    document.getElementById('set-ship-3').addEventListener('click', () => setShipSize(3, 'lightblue'));
+    document.getElementById('set-ship-4').addEventListener('click', () => setShipSize(4, 'lightyellow'));
+    document.getElementById('set-ship-5').addEventListener('click', () => setShipSize(5, 'lightgreen'));
+
+    // 전투함의 연속성 검사 함수
     function checkShipPlacement(cells) {
         const rows = cells.map(cell => cell.parentNode.rowIndex);
         const cols = cells.map(cell => cell.cellIndex);
-
         const allInSameRow = rows.every(row => row === rows[0]);
         const allInSameCol = cols.every(col => col === cols[0]);
 
@@ -99,9 +107,25 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.style.backgroundColor = '';
             cell.style.border = '';
         });
+        selectedCells = []; // Resetting selected cells
     }
 
+
+    startGameButton.addEventListener('click', () => {
+        if (!gameStarted) { // 게임이 시작되지 않은 경우에만
+            gameStarted = true;
+            startGameButton.disabled = true;
+            alert("Game has started!"); // 한 번만 표시
+        }
+    });
+
     function handleCellClick(cell) {
+            // 게임이 시작되지 않은 경우
+    if (!gameStarted) {
+        alert("Please start the game first!");
+        return; // 게임이 시작되지 않았으면 클릭을 무시
+    }
+
         if (!cell.dataset.state) {
             cell.dataset.state = 'X';
             cell.textContent = 'X';
@@ -114,11 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    startGameButton.addEventListener('click', () => {
-        gameStarted = true;
-        startGameButton.disabled = true;
-        alert("Game has started!");
-    });
 
     function checkGameOver() {
         const allShips = document.querySelectorAll('#my-sea .ship');
@@ -134,25 +153,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showGameOverButtons() {
+            // 이미 버튼이 생성된 경우 추가 생성 방지
+    const existingButtonContainer = document.getElementById('button-container');
+    if (existingButtonContainer) {
+        return; // 버튼이 이미 존재하면 함수를 종료
+    }
+
         const buttonContainer = document.createElement('div');
         const winButton = document.createElement('button');
         const loseButton = document.createElement('button');
-
+    
         winButton.textContent = 'Win';
         loseButton.textContent = 'Lose';
-
+    
         winButton.addEventListener('click', () => {
             playerAScore++;
             updateScoreBoard(playerAScore, playerBScore);
             resetGame();
         });
-
+    
         loseButton.addEventListener('click', () => {
             playerBScore++;
             updateScoreBoard(playerAScore, playerBScore);
             resetGame();
         });
-
+    
         buttonContainer.appendChild(winButton);
         buttonContainer.appendChild(loseButton);
         document.body.appendChild(buttonContainer);
@@ -171,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.classList.remove('ship', 'selected'); // 배 제거
             });
         });
-    
+
         // 'enemy-sea'에서 첫 번째 행과 열을 제외하고 초기화
         document.querySelectorAll('#enemy-sea tr').forEach((row, rowIndex) => {
             row.querySelectorAll('td').forEach((cell, colIndex) => {
@@ -182,60 +207,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.style.border = ''; // 테두리 초기화
             });
         });
-    
+
         // 배 크기 및 배치 상태 초기화
         shipSize = 0;
         shipsPlaced = 0;
         gameStarted = false;
-    
-        // Win/Lose 버튼 활성화 상태 조정
-        const buttonContainer = document.querySelector('div'); // 버튼 컨테이너 선택
-        if (buttonContainer) {
-            // 버튼 비활성화
-            buttonContainer.childNodes.forEach(button => {
-                if (button.tagName === 'BUTTON') {
-                    button.disabled = true; // 모든 버튼 비활성화
-                }
-            });
-        }
-    
+
         // '게임 시작' 버튼 비활성화 및 배치 모드로 복원
-        startGameButton.disabled = false; // 게임 시작 버튼 활성화
+        startGameButton.disabled = true; // 배치 후에만 활성화
         alert("Game has been reset. Place your ships again!");
     }
-    
-    // 게임 오버 버튼 표시 함수
-    function showGameOverButtons() {
-        const buttonContainer = document.createElement('div'); // 버튼 컨테이너 생성
-        const winButton = document.createElement('button');
-        const loseButton = document.createElement('button');
-    
-        winButton.textContent = 'Win';
-        loseButton.textContent = 'Lose';
-    
-        // 버튼 클릭 이벤트 설정
-        winButton.addEventListener('click', () => {
-            playerAScore++;
-            updateScoreBoard(playerAScore, playerBScore);
-            resetGame();
-        });
-    
-        loseButton.addEventListener('click', () => {
-            playerBScore++;
-            updateScoreBoard(playerAScore, playerBScore);
-            resetGame();
-        });
-    
-        buttonContainer.appendChild(winButton);
-        buttonContainer.appendChild(loseButton);
-        document.body.appendChild(buttonContainer); // 버튼을 문서에 추가
-        alert("Game Over! You can choose Win or Lose."); // 게임 오버 메시지
-    
-        // 버튼 비활성화
-        winButton.disabled = false; // 게임 오버 시 Win 버튼 활성화
-        loseButton.disabled = false; // 게임 오버 시 Lose 버튼 활성화
-    }
-    
-    
-    
 });
+
+
+3가지 문제가 남음
+시작 누르면 Game has Started! 가 두번 뜸. 
+그리고 게임 시작 후 클릭할 때 O가 아니라 X부터 나옴
+그리고 게임 리셋하고 다시 게임을 하면 Win Lose버튼이 밑에 또나옴
+그리고 게임 리셋했는데 점수판 제외 초기화가 안됨. 

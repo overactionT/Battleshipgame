@@ -6,17 +6,30 @@
     <title>Battleship Game</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
-    <script src="/socket.io/socket.io.js"></script>
+    <script defer src="game.js"></script> <!-- defer로 스크립트가 로딩 후 실행되게 설정 -->
 </head>
 <body>
     <header>
         <div id="scoreboard">
-            <p>A vs B</p>
-            <p id="score">0 vs 0</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Me</td>
+                        <td>vs</td>
+                        <td>Enemy</td>
+                    </tr>
+                    <tr>
+                        <td><p id="my-score">0</p></td>
+                        <td>vs</td>
+                        <td><p id="enemy-score">0</p></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>        
     </header>
 
-    <h1>Welcome to Battleship Game!</h1>
+    <h1>10. What does He look like?</h1>
+    <p>Battleship Game!</p>
 
     <!-- 전투함 크기 설정 버튼 -->
     <div id="ship-selection">
@@ -30,7 +43,7 @@
         <table id="my-sea">
             <tbody>
                 <tr>
-                    <td></td> <!-- 비워둔 칸 -->
+                    <td>\</td> 
                     <td>He's very tall.</td>
                     <td>He has black eyes.</td>
                     <td>He's wearing glasses.</td>
