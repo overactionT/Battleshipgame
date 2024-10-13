@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship Game</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <header>
+        <div id="scoreboard">
+            <p>A vs B</p>
+            <p id="score">0 vs 0</p>
+        </div>        
+    </header>
+
+    <h1>Welcome to Battleship Game!</h1>
+
+    <!-- 전투함 크기 설정 버튼 -->
+    <div id="ship-selection">
+        <button id="set-ship-3">배 3칸</button>
+        <button id="set-ship-4">배 4칸</button>
+        <button id="set-ship-5">배 5칸</button>
+    </div>
+    
+    <div id="game-container">
+        <h2>Your Sea</h2>
+        <table id="my-sea">
+            <tbody>
+                <tr>
+                    <td></td> <!-- 비워둔 칸 -->
+                    <td>He's very tall.</td>
+                    <td>He has black eyes.</td>
+                    <td>He's wearing glasses.</td>
+                    <td>He's wearing a yellow shirt.</td>
+                    <td>He's wearing green pants.</td>
+                    <td>He's wearing a blue coat.</td>
+                </tr>
+                <tr>
+                    <td>He has short hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has curly hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has straight hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has blonde hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has brown hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Enemy's Sea</h2>
+        <table id="enemy-sea">
+            <tbody>
+                <tr>
+                    <td></td> <!-- 비워둔 칸 -->
+                    <td>He's very tall.</td>
+                    <td>He has black eyes.</td>
+                    <td>He's wearing glasses.</td>
+                    <td>He's wearing a yellow shirt.</td>
+                    <td>He's wearing green pants.</td>
+                    <td>He's wearing a blue coat.</td>
+                </tr>
+                <tr>
+                    <td>He has short hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has curly hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has straight hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has blonde hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>He has brown hair.</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+            
+        <button id="start-game" disabled>게임 시작</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
