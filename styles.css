@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 10px auto;
+}
+
+td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #333;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f0f0f0;
+    cursor: pointer; /* 클릭 가능하게 보이도록 변경 */
+}
+
+td.hit {
+    background-color: red;
+}
+
+td.miss {
+    background-color: blue;
+}
