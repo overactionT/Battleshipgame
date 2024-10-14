@@ -6,7 +6,7 @@
     <title>Battleship Game</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
-    <script defer src="game.js"></script> <!-- defer로 스크립트가 로딩 후 실행되게 설정 -->
+    <script defer src="game.js"></script> <!-- defer 속성 유지 -->
 </head>
 <body>
     <header>
@@ -25,25 +25,31 @@
                     </tr>
                 </tbody>
             </table>
-        </div>        
+        </div>
     </header>
 
     <h1>10. What does He look like?</h1>
-    <p>Battleship Game!</p>
-
-    <!-- 전투함 크기 설정 버튼 -->
+    <h2>-Battleship Game-</h2>
+    <p></p>
     <div id="ship-selection">
         <button id="set-ship-3">배 3칸</button>
         <button id="set-ship-4">배 4칸</button>
         <button id="set-ship-5">배 5칸</button>
     </div>
-    
+    <p></p>
     <div id="game-container">
-        <h2>Your Sea</h2>
+        <button id="start-game" disabled>게임 시작</button>
+        <div id="button-container" style="display: none;">
+            <button id="win-button" disabled>Win</button>
+            <button id="lose-button" disabled>Lose</button>
+        </div>
+        
+    <div id="game-container">
+        <h2>My Sea</h2>
         <table id="my-sea">
             <tbody>
                 <tr>
-                    <td>\</td> 
+                    <td>\</td>
                     <td>He's very tall.</td>
                     <td>He has black eyes.</td>
                     <td>He's wearing glasses.</td>
@@ -103,7 +109,7 @@
         <table id="enemy-sea">
             <tbody>
                 <tr>
-                    <td></td> <!-- 비워둔 칸 -->
+                    <td>\</td>
                     <td>He's very tall.</td>
                     <td>He has black eyes.</td>
                     <td>He's wearing glasses.</td>
@@ -158,9 +164,11 @@
                 </tr>
             </tbody>
         </table>
-            
-        <button id="start-game" disabled>게임 시작</button>
+        
+        <div id="button-container" style="display: none;"> <!-- 버튼 감싸는 div 추가 -->
+            <button id="win-button">Win</button>
+            <button id="lose-button">Lose</button>
+        </div>    
     </div>
-    <script src="game.js"></script>
 </body>
 </html>

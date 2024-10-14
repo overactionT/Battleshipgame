@@ -17,10 +17,10 @@ table {
 
 /* 점수판 내부 셀 스타일 */
 #scoreboard td {
-    background-color: rgb(225, 225, 225); /* 점수판 내부 셀 배경: 흰색 */
+    background-color: rgb(240, 229, 229); /* 점수판 내부 셀 배경: 흰색 */
     padding: 5px;
     border-radius: 5px;
-    width: 80px;
+    width: 60px;
     text-align: center;
     vertical-align: middle;
 }
@@ -33,7 +33,7 @@ td.axis {
 
 /* 클릭 가능한 셀 스타일 */
 td {
-    width: 80px;
+    width: 100px;
     height: 50px;
     border: 1px solid #333;
     text-align: center;
@@ -59,3 +59,15 @@ td:first-child {
     background-color: #84f1ff;
     cursor: default;
 }
+#button-container {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    gap: 10px; /* 버튼 간격 */
+    margin-top: 10px; /* 게임 시작 버튼과의 간격 */
+}
+
+#button-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
