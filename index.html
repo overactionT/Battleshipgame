@@ -4,94 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship Game</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
-    <script defer src="game.js"></script> <!-- defer 속성 유지 -->
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <header>
-        <div id="scoreboard">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Me</td>
-                        <td>vs</td>
-                        <td>Enemy</td>
-                    </tr>
-                    <tr>
-                        <td><p id="my-score">0</p></td>
-                        <td>vs</td>
-                        <td><p id="enemy-score">0</p></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </header>
+    <h1>Welcome to Battleship Game!</h1>
 
-    <h1>10. What does He look like?</h1>
-    <h2>-Battleship Game-</h2>
-    <p></p>
     <div id="ship-selection">
         <button id="set-ship-3">배 3칸</button>
         <button id="set-ship-4">배 4칸</button>
         <button id="set-ship-5">배 5칸</button>
     </div>
-    <p></p>
+    
     <div id="game-container">
-        <button id="start-game" disabled>게임 시작</button>
-        <div id="button-container" style="display: none;">
-            <button id="win-button" disabled>Win</button>
-            <button id="lose-button" disabled>Lose</button>
-        </div>
-        
-    <div id="game-container">
-        <h2>My Sea</h2>
+        <h2>Your Sea</h2>
         <table id="my-sea">
             <tbody>
                 <tr>
                     <td></td>
-                    <td>What is she doing?</td>
-                    <td>What is he doing?</td>
-                    <td>What are they doing?</td>
-                    <td>What are you doing?</td>
+                    <td>a jacket</td>
+                    <td>a cap</td>
+                    <td>a band</td>
+                    <td>gloves</td>
+                    <td>socks</td>
+                    <td>shoes</td>
                 </tr>
                 <tr>
-                    <td>listening to music.</td>
+                    <td>$1</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>reading a book.</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>sleeping.</td>
+                    <td>$5</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>cleaning the room.</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>playing the danso.</td>
+                    <td>$10</td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>watering the flowers.</td>
+                    <td>3,000 won</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>12,000 won</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8,000 won</td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -105,48 +92,62 @@
             <tbody>
                 <tr>
                     <td></td>
-                    <td>What is she doing?</td>
-                    <td>What is he doing?</td>
-                    <td>What are they doing?</td>
-                    <td>What are you doing?</td>
+                    <td>a jacket</td>
+                    <td>a cap</td>
+                    <td>a band</td>
+                    <td>gloves</td>
+                    <td>socks</td>
+                    <td>shoes</td>
                 </tr>
                 <tr>
-                    <td>listening to music.</td>
+                    <td>$1</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>reading a book.</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>sleeping.</td>
+                    <td>$5</td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>cleaning the room.</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>playing the danso.</td>
+                    <td>$10</td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>watering the flowers.</td>
+                    <td>3,000 won</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>12,000 won</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8,000 won</td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -154,11 +155,9 @@
                 </tr>
             </tbody>
         </table>
-        
-        <div id="button-container" style="display: none;"> <!-- 버튼 감싸는 div 추가 -->
-            <button id="win-button">Win</button>
-            <button id="lose-button">Lose</button>
-        </div>    
+            
+        <button id="start-game" disabled>게임 시작</button>
     </div>
+    <script src="game.js"></script>
 </body>
 </html>
